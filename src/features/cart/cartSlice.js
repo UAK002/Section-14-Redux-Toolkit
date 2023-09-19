@@ -1,35 +1,35 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import cartItems from '../../cartItems';
 
-import axios from 'axios';
-import { openModal } from '../modal/modalSlice';
+// import axios from 'axios';
+// import { openModal } from '../modal/modalSlice';
 
-// const url = 'https://course-api.com/react-useReducer-cart-project';
-const url = 'https://course-api.com/react-useReducer-cart-projectsss';
+const url = 'https://course-api.com/react-useReducer-cart-project';
+// const url = 'https://course-api.com/react-useReducer-cart-projectsss';
 
-// export const getCartItems = createAsyncThunk('cart/getCartItems', () => {
-//   return fetch(url)
-//     .then((resp) => resp.json())
-//     .catch((err) => console.log(err));
-// });
+export const getCartItems = createAsyncThunk('cart/getCartItems', () => {
+  return fetch(url)
+    .then((resp) => resp.json())
+    .catch((err) => console.log(err));
+});
 // export const getCartItems = createAsyncThunk('cart/getCartItems', async () => {
-export const getCartItems = createAsyncThunk(
-  'cart/getCartItems',
-  async (name, thunkAPI) => {
-    try {
-      const resp = await axios(url);
-      // console.log(resp);
-      // console.log(name);
-      // console.log(thunkAPI);
-      // console.log(thunkAPI.getState());
-      // thunkAPI.dispatch(openModal());
-      // return resp;
-      return resp.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue('Something went wrong');
-    }
-  }
-);
+// export const getCartItems = createAsyncThunk(
+//   'cart/getCartItems',
+//   async (name, thunkAPI) => {
+//     try {
+//       const resp = await axios(url);
+//       // console.log(resp);
+//       // console.log(name);
+//       // console.log(thunkAPI);
+//       // console.log(thunkAPI.getState());
+//       // thunkAPI.dispatch(openModal());
+//       // return resp;
+//       return resp.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue('Something went wrong');
+//     }
+//   }
+// );
 
 const initialState = {
   // cartItems: cartItems,
@@ -79,13 +79,13 @@ const cartSlice = createSlice({
       state.isLoading = false;
       state.cartItems = action.payload;
     },
-    // [getCartItems.rejected]: (state) => {
-    //   state.isLoading = false;
-    // },
-    [getCartItems.rejected]: (state, action) => {
-      console.log(action);
+    [getCartItems.rejected]: (state) => {
       state.isLoading = false;
     },
+    // [getCartItems.rejected]: (state, action) => {
+    //   console.log(action);
+    //   state.isLoading = false;
+    // },
   },
 });
 
